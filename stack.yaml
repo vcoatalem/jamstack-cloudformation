@@ -72,12 +72,18 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: fdd35964-3857-42c6-af64-c5b83eddc297
-        
+  
+  DemoElasticIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref EC2Instance
+
   InstanceNetworkInterface:
     Type: "AWS::EC2::NetworkInterface"
     Properties:
       Description: "Network Interface for Strapi Instance"
-      SubnetId: !Ref PublicSubnet1
+      SubnetId: !Ref PrivateSubnet1
       GroupSet: [!Ref InstanceSecurityGroup]
 
 
@@ -279,7 +285,6 @@ Resources:
       SubnetIds:
         - !Ref PrivateSubnet1
         - !Ref PrivateSubnet2
-        - !Ref PublicSubnet1
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 61679358-d768-4157-a18a-8971f0ac6ca3
